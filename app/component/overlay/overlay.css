@@ -1,0 +1,46 @@
+/*.modal {
+    display:block !important;
+    overflow-y: auto;
+}
+
+.modal-content {
+    color: black;
+    background-color: #635555;;
+    box-shadow: 0 0 10px #635555;;
+    border: 2px solid #635555;;
+    border-radius: 0
+}
+
+.modal-header {
+    padding: 4px;
+    border-bottom: 1px solid #635555;;
+    color: #635555;
+    background-color: #635555;
+}
+.modal-title {
+        font-size: 10px;
+        padding: 0 5px;
+        margin: 0;
+}
+.close {
+    font-size: 10px;
+    color: #635555;;
+    margin-top: 2px;
+    opacity: 1;
+    width: 15px;
+}
+
+.modal-body {
+    padding: 7px;
+}
+
+.modal-backdrop {
+    opacity:0.7;
+}
+
+.modal-icon {
+    float: left;
+    font-size: 10px;
+    margin-right: 6px;
+    margin-top: 1px;
+}*/
