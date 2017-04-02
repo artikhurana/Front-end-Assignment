@@ -11,6 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var forms_1 = require("@angular/forms");
+var validator_1 = require("../custom-validtor/validator");
 var Overlay = (function () {
     function Overlay(jsonp) {
         this.submitted = false;
@@ -19,16 +21,24 @@ var Overlay = (function () {
         this.response = new core_1.EventEmitter();
     }
     Overlay.prototype.ngOnInit = function () {
+        this.myForm = new forms_1.FormGroup({
+            name: new forms_1.FormControl('', [forms_1.Validators.required, validator_1.CustomValidators.nameValidator]),
+            tracks: new forms_1.FormControl('', [forms_1.Validators.required, validator_1.CustomValidators.trackValidator])
+        });
     };
     Overlay.prototype.ngAfterViewInit = function () {
         $('#artistSearch').modal({
             backdrop: true
         });
     };
-    Overlay.prototype.search = function (form) {
-        form.form.updateValueAndValidity();
-        if (form.valid) {
-            this._search(form);
+    Overlay.prototype.getControlValidity = function (controlName) {
+        var control = this.myForm.controls[controlName];
+        return control.valid;
+    };
+    Overlay.prototype.search = function () {
+        this.myForm.updateValueAndValidity();
+        if (this.myForm.valid) {
+            this._search(this.myForm);
             this.closeModal();
         }
     };
@@ -60,7 +70,6 @@ Overlay = __decorate([
     core_1.Component({
         selector: 'overlay',
         templateUrl: 'overlay.html',
-        styleUrls: ['overlay.css'],
         outputs: ['response'],
         moduleId: module.id
     }),

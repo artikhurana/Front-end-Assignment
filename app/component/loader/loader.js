@@ -7,20 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var AppChild = (function () {
-    function AppChild() {
+;
+var Loader = (function () {
+    function Loader() {
+        this.loading = false;
     }
-    AppChild.prototype.ngOnInit = function () {
-    };
-    return AppChild;
+    return Loader;
 }());
-AppChild = __decorate([
+Loader = __decorate([
     core_1.Component({
-        selector: 'overlay',
-        templateUrl: 'overlay.html',
-        styleUrls: ['overlay.css'],
+        selector: 'app-loader',
         moduleId: module.id,
+        templateUrl: './loader.html',
+        styleUrls: ['./loader.css'],
+        inputs: ['loading']
     })
-], AppChild);
-exports.AppChild = AppChild;
-//# sourceMappingURL=overlay.js.map
+], Loader);
+exports.Loader = Loader;
+//# sourceMappingURL=loader.js.map

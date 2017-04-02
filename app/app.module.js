@@ -26,10 +26,12 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             http_1.HttpModule,
             http_1.JsonpModule,
-            forms_1.FormsModule
+            forms_1.FormsModule,
+            forms_1.ReactiveFormsModule
         ],
-        entryComponents: [component_1.TabView, component_1.Overlay],
-        declarations: [component_1.TabView, component_1.Overlay],
+        providers: [component_1.Utils],
+        entryComponents: [component_1.TabView, component_1.Overlay, component_1.Loader],
+        declarations: [component_1.TabView, component_1.Overlay, component_1.Loader],
         bootstrap: [component_1.TabView]
     })
 ], AppModule);

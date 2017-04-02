@@ -1,14 +1,45 @@
-<div class="text-center">
-    <button type="submit" class="btn btn-primary center-block"
-            (click)="onSubmitClick($event)">Search Artist </button>
+<div class="text-center submit">
+    <button id="submitArtist" type="submit" class="btn btn-primary center-block" (click)="onSubmitClick($event)">Search Artist </button>
 </div>
- <div #parent></div>
-<div>
-    <ul class="nav nav-tabs"  role="tablist" *ngIf="data?.length">
+<div #parent></div>
+<div class="col col-md-12">
+    <ul class="nav nav-tabs row" role="tablist" *ngIf="data?.length">
         <li [class.active]="item.active" *ngFor="let item of data" role="presentation" (click)="selectTab(item)">
             <a href="#"> {{item.artistName}}</a>
         </li>
+        <div class="center">
+            <app-loader [loading]="loader"></app-loader>
+        </div>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content row" *ngIf="artistDetail">
+        <div class="col col-md-2 image-container">
+            <img class="artist-image" [src]="artistDetail.image"></div>
+        <div>
+        <div class="col col-md-10">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td class="td-title">Collection Name</td>
+                        <td>{{artistDetail.collectionName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="td-title">Track Name</td>
+                        <td>{{artistDetail.trackName}}</td>
+                    </tr>
+                    <tr>
+                        <td>Track Price</td>
+                        <td>{{artistDetail.price}}</td>
+                    </tr>
+                    <tr>
+                        <td>Preview URL</td>
+                        <td><a target="_blank" [href]="artistDetail.previewURL">Play it</a></td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{artistDetail.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -12,12 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var overlay_1 = require("./overlay/overlay");
+var utils_1 = require("./utils");
+var artist_details_1 = require("./artist-details");
 var TabView = (function () {
-    function TabView(componentFactoryResolver, jsonp) {
+    function TabView(componentFactoryResolver, jsonp, utils) {
         this.componentFactoryResolver = componentFactoryResolver;
         this.url = 'http://itunes.apple.com/search';
+        this.loader = false;
         this.childComponent = this.componentFactoryResolver.resolveComponentFactory(overlay_1.Overlay);
         this._jsonp = jsonp;
+        this._utils = utils;
     }
     TabView.prototype.ngOnInit = function () {
     };
@@ -33,18 +37,41 @@ var TabView = (function () {
         var _this = this;
         console.log('Hello');
         var cmpRef = this.target.createComponent(this.childComponent);
+        this.clearTab();
         cmpRef.instance['response'].subscribe(function (res) {
             console.log(res);
             _this.data = res.data;
+            if (_this.data.length > 0) {
+                _this.selectTab(_this.data[0]);
+            }
         });
     };
     TabView.prototype.loadData = function (name) {
-        var params = { 'limit': 1, 'callback': 'JSONP_CALLBACK', 'term': name };
+        var _this = this;
+        var params = {
+            'limit': 1,
+            'callback': 'JSONP_CALLBACK',
+            'term': encodeURIComponent(name)
+        };
+        this.loader = true;
         this._jsonp.get(this.url, {
-            search: $.param(params)
+            search: this._utils.buildSubmitString(params)
         }).subscribe(function (res) {
+            var result = res.json().results[0];
+            _this.loader = false;
             console.log(res);
+            _this.artistDetail = new artist_details_1.ArtistDetail();
+            _this.artistDetail.collectionName = result.artistName;
+            _this.artistDetail.description = result.longDescription;
+            _this.artistDetail.image = result.artworkUrl100;
+            _this.artistDetail.previewURL = result.previewUrl;
+            _this.artistDetail.price = result.trackPrice;
+            _this.artistDetail.trackName = result.trackName;
         });
+    };
+    TabView.prototype.clearTab = function () {
+        this.data = [];
+        this.artistDetail = null;
     };
     return TabView;
 }());
@@ -59,7 +86,8 @@ TabView = __decorate([
         templateUrl: './tabview.html',
         styleUrls: ['./tabview.css']
     }),
-    __metadata("design:paramtypes", [core_1.ComponentFactoryResolver, http_1.Jsonp])
+    __metadata("design:paramtypes", [core_1.ComponentFactoryResolver, http_1.Jsonp,
+        utils_1.Utils])
 ], TabView);
 exports.TabView = TabView;
 //# sourceMappingURL=tabview.js.map
