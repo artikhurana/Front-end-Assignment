@@ -1,14 +1,13 @@
-Create a repository in git hub
-clone that
-// Create the package.json
-npm init
-// Create the tsconfig.json
-tsc --init
+To start the project follow the instructions.
 
-//Install the http-server
+Install the http-server globally.
 npm install -g http-server
 
-//install the dependecies.
+Install tsc globally.
+npm install -g tsc
+
+install the npm dependecies.
 npm install
-// Run the project
+
+Run the project.
 npm start
